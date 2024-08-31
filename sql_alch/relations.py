@@ -1,16 +1,11 @@
-from sqlalchemy import (ForeignKey,
-                        Text,
-                        Column,
-                        Integer,
-                        String, Float, Boolean,
-                        Table)
-from sql_alchemy import engine, Base
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import relationship
+from sqlalchemy import (ForeignKey, Column, Integer, String)
+from sqlalchemy.orm import sessionmaker, relationship
 
+from sql_alch import engine, Base
 
 Session = sessionmaker(bind=engine)
 session = Session()
+
 
 class Parent(Base):
     __tablename__ = 'parent'
@@ -18,13 +13,14 @@ class Parent(Base):
     name = Column(String(255))
     children = relationship("Child", back_populates="parent")
 
+
 class Child(Base):
     __tablename__ = 'child'
     id = Column(Integer, primary_key=True)
     name = Column(String(255))
     parent_id = Column(Integer, ForeignKey('parent.id'))
-    parent = relationship("Parent", back_populates="children", uselist=False)
-    # parent = relationship("Parent", back_populates="children")
+    parent = relationship("Parent", back_populates="children", uselist=False)  # parent = relationship("Parent", back_populates="children")
+
 
 Base.metadata.create_all(engine)
 # Создание нового родителя и детей
@@ -38,22 +34,8 @@ session.add(child1)
 session.add(child2)
 session.commit()
 
-
 # Получение родителя и связанных с ним детей
 parent = session.query(Parent).filter_by(name='John').first()
 print(parent.name)
 for child in parent.children:
     print(child.name)
-
-
-
-
-
-
-
-
-
-
-
-
-

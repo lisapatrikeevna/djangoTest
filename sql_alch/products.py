@@ -4,7 +4,7 @@ from sqlalchemy import (ForeignKey,
                         Integer,
                         String, Float, Boolean,
                         Table)
-from sql_alchemy import engine, Base
+from sql_alch import engine, Base
 from sqlalchemy.orm import relationship
 
 tags_association = Table(
