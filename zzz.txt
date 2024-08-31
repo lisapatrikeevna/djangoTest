@@ -1,0 +1,6 @@
+pip install SQLAlchemy
+pip install psycopg2
+pip install pymysql
+
+pip install pydantic
+
